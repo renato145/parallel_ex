@@ -4,7 +4,7 @@ from functools import partial
 
 def some_function(n):
     for i in range(n):
-        time.sleep(0.2)
+        time.sleep(0.1)
         yield i
 
 def test_run_n_times():
