@@ -49,21 +49,20 @@ class ParallelEx:
             res = [pool.apply_async(wrap_function, (func,queue)) for func,queue in zip(self.funcs,queues)]
             pool.close()
             self.print()
-            i = 0
+            ready = [False]*len(res)
             while True:
-                if i == len(self): break
-                for queue,r,bar in zip(queues,res,self.bars):
-                    if not queue.empty():
-                        try:
-                            v = queue.get_nowait()
-                            bar.step()
-                            self.print(refresh=True)
-                        except:
-                            pass
-                        finally:
-                            if r.ready():
-                                self.main_bar.step()
-                                i += 1
+                if sum(ready) == len(self): break
+                for i,(queue,r,bar) in enumerate(zip(queues,res,self.bars)):
+                    try:
+                        v = queue.get_nowait()
+                        bar.step()
+                        self.print(refresh=True)
+                    except:
+                        pass
+                    finally:
+                        if not ready[i] and r.ready():
+                            self.main_bar.step()
+                            ready[i] = True
 
             pool.join()
             self.print(refresh=True)
