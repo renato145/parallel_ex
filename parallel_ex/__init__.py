@@ -93,6 +93,5 @@ class ParallelEx:
     def run_n_times(cls, func:Callable, n:int, total:int, n_cpu:Optional[int]=None)->list:
         '''Run same function `n` times.
         - total: expected number of elements to get back.'''
-        funcs = list(repeat(func, n))
-        ex = cls(funcs, total, n_cpu=n_cpu)
+        ex = cls(list(repeat(func, n)), total, n_cpu=n_cpu)
         return ex._run()

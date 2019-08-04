@@ -9,7 +9,7 @@ def some_function(n):
 
 def test_run_n_times():
     fun = partial(some_function, 10)
-    ParallelEx.run_n_times(some_function, n=5, total=10, n_cpu=2)
+    ParallelEx.run_n_times(fun, n=5, total=10, n_cpu=2)
 
 def test_run_kwargs():
     totals = [25,8,6,22,12,6,10,9]
@@ -17,4 +17,5 @@ def test_run_kwargs():
     ParallelEx.run_kwargs(some_function, kwargs, totals=totals, n_cpu=3)
 
 if __name__ == "__main__":
+    test_run_n_times()
     test_run_kwargs()
