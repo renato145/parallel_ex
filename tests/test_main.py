@@ -18,4 +18,5 @@ def test_run_kwargs():
 
 if __name__ == "__main__":
     test_run_n_times()
+    print()
     test_run_kwargs()
