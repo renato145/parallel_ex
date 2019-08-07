@@ -9,7 +9,7 @@ def wrap_function(func:Callable, queue:Queue)->None:
     for i in func(): queue.put(i)
 
 @dataclass
-class Bar:
+class Bar():
     total:int
     n:int=0
     symbol:str='='
@@ -29,7 +29,7 @@ class Bar:
         msg = f'[{self.symbol*filled}{" "*blank}] {progress:3d}%'
         print(msg)
 
-class ParallelEx:
+class ParallelEx():
     def __init__(self, funcs:Collection[Callable], totals:Union[int,Collection[int]], n_cpu:Optional[int]=None):
         if n_cpu is None: n_cpu = multiprocessing.cpu_count()
         if isinstance(totals, int): totals = list(repeat(totals,len(funcs)))
